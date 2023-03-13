@@ -4,8 +4,8 @@
   y nos permite tener un mayor orden y control sobre nuestros datos
 */
 
-export interface MovieDBNowPlaying {
-  dates:         Dates;
+export interface MovieDBMoviesResponse {
+  dates?:         Dates;
   page:          number;
   results:       Movie[];
   total_pages:   number;

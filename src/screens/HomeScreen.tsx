@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, ActivityIndicator, Dimensions, FlatList, ScrollView } from 'react-native';
 import movieDB from '../api/movieDB';
-import { MovieDBNowPlaying } from '../interfaces/movieInterface';
+import { MovieDBMoviesResponse } from '../interfaces/movieInterface';
 import useMovies from '../hooks/useMovies';
 import MoviePoster from '../components/MoviePoster';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -13,7 +13,7 @@ const { width: windowWith } = Dimensions.get('window');
 const HomeScreen = () => {
 
   // useEffect(() => {
-  //   movieDB.get<MovieDBNowPlaying>('/now_playing')
+  //   movieDB.get<MovieDBMoviesResponse>('/now_playing')
   //   .then(response => {
   //     console.log(response.data.results[0].title)
   //   })
@@ -24,7 +24,7 @@ const HomeScreen = () => {
     useEffect de arriba, pero nos da el plus de la modularidad y la buena legibilidad
     del codigo
   */
-  const { premieres, isLoading } = useMovies();
+  const { nowPlaying, popular, topRated, upcoming, isLoading } = useMovies();
   const { top } = useSafeAreaInsets();
 
   if (isLoading) {
@@ -42,7 +42,7 @@ const HomeScreen = () => {
         {/* <MoviePoster movie={premieres[5]} /> */}
         <View style={{ height: 440 }}>
           <Carousel
-            data={premieres}
+            data={nowPlaying}
             renderItem={({ item }: any) => <MoviePoster movie={item} />}
             sliderWidth={windowWith}
             itemWidth={300}
@@ -50,9 +50,10 @@ const HomeScreen = () => {
           />
         </View>
 
-        <HorizontalSlider title='On Billboard' movies={premieres} />
-        <HorizontalSlider  movies={premieres} />
-        <HorizontalSlider title='On Billboard' movies={premieres} />
+        {/* <HorizontalSlider title='On Billboard' movies={premieres} /> */}
+        <HorizontalSlider title='Popular Movies' movies={popular} />
+        <HorizontalSlider title='Top Rated Movies' movies={topRated} />
+        <HorizontalSlider title='Upcoming Movies' movies={upcoming} />
 
       </View>
     </ScrollView>
