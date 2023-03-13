@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, ActivityIndicator, Dimensions } from 'react-native';
+import { View, Text, ActivityIndicator, Dimensions, FlatList, ScrollView } from 'react-native';
 import movieDB from '../api/movieDB';
 import { MovieDBNowPlaying } from '../interfaces/movieInterface';
 import useMovies from '../hooks/useMovies';
@@ -36,17 +36,33 @@ const HomeScreen = () => {
   }
 
   return (
-    <View style={{ marginTop: top + 15 }}>
-      {/* <MoviePoster movie={premieres[5]} /> */}
-      <View style={{ height: 440 }}>
-        <Carousel
-          data={premieres}
-          renderItem={({ item }: any) => <MoviePoster movie={item} />}
-          sliderWidth={windowWith}
-          itemWidth={300}
-        />
+    <ScrollView>
+      <View style={{ marginTop: top + 15 }}>
+        {/* <MoviePoster movie={premieres[5]} /> */}
+        <View style={{ height: 440 }}>
+          <Carousel
+            data={premieres}
+            renderItem={({ item }: any) => <MoviePoster movie={item} />}
+            sliderWidth={windowWith}
+            itemWidth={300}
+          />
+        </View>
+
+        <View style={{ backgroundColor: 'red', height: 250 }}>
+          <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>On Billboard</Text>
+          <FlatList
+            data={premieres}
+            renderItem={({ item }) => (
+              <MoviePoster movie={item} width={140} height={200} marginHorizontal={8} />
+            )}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
