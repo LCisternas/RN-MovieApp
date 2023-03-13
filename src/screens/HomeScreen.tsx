@@ -3,6 +3,8 @@ import { View, Text, ActivityIndicator } from 'react-native';
 import movieDB from '../api/movieDB';
 import { MovieDBNowPlaying } from '../interfaces/movieInterface';
 import useMovies from '../hooks/useMovies';
+import MoviePoster from '../components/MoviePoster';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
 
@@ -19,6 +21,7 @@ const HomeScreen = () => {
     del codigo
   */
   const { premieres, isLoading } = useMovies();
+  const { top } = useSafeAreaInsets();
 
   if (isLoading) {
     return (
@@ -30,8 +33,8 @@ const HomeScreen = () => {
   }
 
   return (
-    <View>
-      <Text>HomeScreen</Text>
+    <View style={{ marginTop: top + 15 }}>
+      <MoviePoster movie={premieres[5]} />
     </View>
   )
 }
