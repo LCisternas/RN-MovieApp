@@ -1,6 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Movie } from '../interfaces/movieInterface';
+
 
 interface MoviePosterProps {
   movie: Movie;
@@ -9,19 +12,26 @@ interface MoviePosterProps {
   marginHorizontal?: number;
 }
 
-const MoviePoster = ({ movie, height = 420, width = 300, marginHorizontal = 0 }: MoviePosterProps) => {
+const MoviePoster = ({
+  movie, height = 420, width = 300, marginHorizontal = 0
+}: MoviePosterProps) => {
 
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+  const navigation = useNavigation();
 
   return (
-    <View style={{ width, height, marginHorizontal }}>
+    <TouchableOpacity
+      onPress={ () => navigation.navigate('Detail' as never, movie as never) }
+      activeOpacity={0.8}
+      style={{ width, height, marginHorizontal }}
+    >
       <View style={styles.imageContainer}>
         <Image
           source={{ uri }}
           style={styles.image}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
