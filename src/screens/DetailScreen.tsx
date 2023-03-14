@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 // import { Movie } from '../interfaces/movieInterface';
 import { RootStackParams } from '../navigation/Navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -46,6 +46,18 @@ const DetailScreen = (props: Props) => {
             <MovieDetails movieFull={movieFull!} cast={cast} />
           )
       }
+
+      <TouchableOpacity
+        onPress={() => props.navigation.pop()}
+        style={styles.backButton}
+      >
+        <Icon
+          name='arrow-back-outline'
+          color='white'
+          size={60}
+        />
+      </TouchableOpacity>
+
     </ScrollView>
   )
 }
@@ -73,5 +85,9 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     opacity: 0.5
+  },
+  backButton: {
+    position: 'absolute',
+    top: 40,
   }
 })
